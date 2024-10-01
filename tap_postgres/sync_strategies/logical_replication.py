@@ -732,6 +732,7 @@ def sync_tables(conn_info, logical_streams, state, end_lsn, state_file):
 
             for s in logical_streams:
                 state = singer.write_bookmark(state, s['tap_stream_id'], 'lsn', lsn_last_processed)
+            LOGGER.info(f"Final state: {state}")
 
         singer.write_message(singer.StateMessage(value=copy.deepcopy(state)))
 
