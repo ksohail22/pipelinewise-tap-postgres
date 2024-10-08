@@ -703,7 +703,7 @@ def sync_tables(conn_info, logical_streams, state, end_lsn, state_file):
                     finally:
                         LOGGER.info('state_comitted\n %s', state_comitted)
                         lsn_comitted = min(
-                            get_bookmark(state_comitted, s['tap_stream_id'], 'lsn', start_lsn)  for s in logical_streams
+                            get_bookmark(state_comitted, s['tap_stream_id'], 'lsn', start_lsn) or start_lsn  for s in logical_streams
                         )
                         LOGGER.info(f"start_lsn: {start_lsn}, lsn_currently_processing: {lsn_currently_processing}, lsn_comitted: {lsn_comitted}, lsn_to_flush: {lsn_to_flush}")
                         if (lsn_currently_processing > lsn_comitted) and (lsn_comitted > lsn_to_flush):
